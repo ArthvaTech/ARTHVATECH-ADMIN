@@ -12,7 +12,7 @@ namespace CMS_System.Controllers
         {
             _logger = logger;
         }
-
+        [Route("Dashboard")]
         public IActionResult Index()
         {
             return View();

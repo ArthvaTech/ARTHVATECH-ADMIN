@@ -6,5 +6,6 @@ namespace ARTHVATECH_ADMIN.Interface
     {
         Users GetUserById(string Email);
         Users CreateUser(Users users);
+        public List<MenuMaster> GetMaster();
     }
 }

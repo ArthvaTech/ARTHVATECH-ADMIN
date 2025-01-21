@@ -50,6 +50,20 @@ namespace ARTHVATECH_ADMIN.Repository
                 return users;
             }
         }
+        public List<MenuMaster> GetMaster()
+        {
+            using (var connection = Db.CreateConnection())
+            {
+                //connection.Open();
+                var menu = new List<MenuMaster>();
+                var parameters = new DynamicParameters();
+
+                // Execute the stored procedure
+                menu = connection.Query<MenuMaster>("GetMenuMaster", parameters, commandType: CommandType.StoredProcedure).ToList();
+
+                return menu;
+            }
+        }
 
     }
 }

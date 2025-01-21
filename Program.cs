@@ -1,6 +1,7 @@
 using ARTHVATECH_ADMIN.Controllers;
 using ARTHVATECH_ADMIN.DbContext;
 using ARTHVATECH_ADMIN.Interface;
+using ARTHVATECH_ADMIN.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +26,7 @@ builder.Services.AddSession(options =>
 });
 
 builder.Services.AddScoped<ILoginRepository, ILoginRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
