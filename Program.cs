@@ -15,6 +15,12 @@ builder.Services.AddScoped<DapperContext>(serviceProvider => {
     var configuration = serviceProvider.GetRequiredService<IConfiguration>();
     return new DapperContext(configuration);
 });
+builder.Services.AddAuthentication("CookieAuth")
+        .AddCookie("CookieAuth", options =>
+        {
+            options.LoginPath = "/Login/Login";
+        });
+
 builder.Services.AddControllersWithViews();
 builder.Services.AddDistributedMemoryCache(); // Stores session in-memory, use a distributed cache in production
 
@@ -27,7 +33,12 @@ builder.Services.AddSession(options =>
 
 builder.Services.AddScoped<ILoginRepository, ILoginRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IAdministrator, AdministratorRepository>();
 var app = builder.Build();
+
+app.UseAuthorization();
+app.UseRouting();
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

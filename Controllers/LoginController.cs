@@ -5,6 +5,8 @@ using ARTHVATECH_ADMIN.Common;
 using ARTHVATECH_ADMIN.Constants;
 using static ARTHVATECH_ADMIN.Constants.AppConstant;
 using ARTHVATECH_ADMIN.Repository;
+using Microsoft.AspNetCore.Authentication;
+using System.Security.Claims;
 
 namespace ARTHVATECH_ADMIN.Controllers
 {
@@ -31,6 +33,18 @@ namespace ARTHVATECH_ADMIN.Controllers
 
             if (isVerified)
             {
+                // Set up user claims
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Name, user.FirstName + " " + user.LastName),
+                    new Claim(ClaimTypes.Email, user.Username)
+                };
+
+                var identity = new ClaimsIdentity(claims, "CookieAuth");
+                var principal = new ClaimsPrincipal(identity);
+
+                // Sign in the user
+                HttpContext.SignInAsync("CookieAuth", principal);
                 AppConstant.Username = user.FirstName + " " +user.LastName;
                 AppConstant.Menus = _loginrepo.GetMaster();
                 return RedirectToAction("Index", "Home");
@@ -59,5 +73,11 @@ namespace ARTHVATECH_ADMIN.Controllers
             _loginrepo.CreateUser(users);
             return View();
         }
+        public IActionResult Logout()
+        {
+            HttpContext.SignOutAsync("CookieAuth");
+            return RedirectToAction("Login");
+        }
+
     }
 }
