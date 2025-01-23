@@ -1,0 +1,46 @@
+﻿@model List<ARTHVATECH_ADMIN.Models.Users>
+@{
+    ViewBag.Pageheader = "Administrators";
+}
+<div class="card-header">
+    <h2 class="card-title mb-0" style="align-content:center">Administrators List</h2>
+</div>
+<div class="card flex-fill">
+
+    <table id="userTable" class="table table-hover my-0" style="width:100%">
+        <thead>
+            <tr>
+                <th class="d-none d-xl-table-cell">Email</th>
+                <th class="d-none d-xl-table-cell">First Name</th>
+                <th class="d-none d-xl-table-cell">Last Name</th>
+                <th class="d-none d-xl-table-cell">Role</th>
+                <th class="d-none d-xl-table-cell">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td class="d-none d-xl-table-cell"><a href="Administrators/Edit?id=@user.Id">@user.Username</a></td>
+                    <td class="d-none d-xl-table-cell">@user.FirstName</td>
+                    <td class="d-none d-xl-table-cell">@user.LastName</td>
+                    <td class="d-none d-xl-table-cell">@user.RoleName</td>
+                    @if(user.IsActive){
+                        <td><span class="badge bg-success">Active</span></td>
+                    }
+                    else if(!string.IsNullOrEmpty(user.TempCode) && user.IsActive == false){
+                        <td><span class="badge bg-warning">In Process</span></td>
+                    }
+                    else{
+                        <td><span class="badge bg-danger">DeActive</span></td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+
+<script>
+    
+</script>
