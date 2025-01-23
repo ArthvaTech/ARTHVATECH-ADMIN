@@ -6,5 +6,6 @@ namespace ARTHVATECH_ADMIN.Constants
     {
         public static string Username { get; set; }
         public static List<MenuMaster> Menus { get; set; } = new List<MenuMaster>();
+        public static string RoleName { get; set; }
     }
 }

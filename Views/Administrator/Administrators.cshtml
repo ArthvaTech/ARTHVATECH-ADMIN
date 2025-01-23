@@ -21,11 +21,19 @@
             @foreach (var user in Model)
             {
                 <tr>
-                    <td class="d-none d-xl-table-cell"><a href="/administrator?id=@user.Id">@user.Username</a></td>
+                    <td class="d-none d-xl-table-cell"><a href="Administrators/Edit?id=@user.Id">@user.Username</a></td>
                     <td class="d-none d-xl-table-cell">@user.FirstName</td>
                     <td class="d-none d-xl-table-cell">@user.LastName</td>
                     <td class="d-none d-xl-table-cell">@user.RoleName</td>
-                    <td><span class="badge bg-success">Active</span></td>
+                    @if(user.IsActive){
+                        <td><span class="badge bg-success">Active</span></td>
+                    }
+                    else if(!string.IsNullOrEmpty(user.TempCode) && user.IsActive == false){
+                        <td><span class="badge bg-warning">In Process</span></td>
+                    }
+                    else{
+                        <td><span class="badge bg-danger">DeActive</span></td>
+                    }
                 </tr>
             }
         </tbody>
@@ -34,7 +42,5 @@
 </div>
 
 <script>
-    // $(document).ready(function () {
-    //     $('#userTable').DataTable();
-    // });
+    
 </script>
